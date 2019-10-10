@@ -6,6 +6,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -32,16 +33,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerAutoConfiguration {
 
-    private final SwaggerApiProperties apiProperties;
-    private final SwaggerOAuthProperties oauthProperties;
-
-    public SwaggerAutoConfiguration(SwaggerApiProperties apiProperties, SwaggerOAuthProperties oauthProperties) {
-        this.apiProperties = apiProperties;
-        this.oauthProperties = oauthProperties;
-    }
+    @Autowired
+    private SwaggerApiProperties apiProperties;
+    @Autowired
+    private SwaggerOAuthProperties oauthProperties;
 
     @Bean
-    @ConditionalOnMissingBean(Docket.class)
+    @ConditionalOnMissingBean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
@@ -80,7 +78,7 @@ public class SwaggerAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(SecurityConfiguration.class)
+    @ConditionalOnMissingBean
     SecurityConfiguration security() {
         return new SecurityConfiguration(oauthProperties.getId(), oauthProperties.getSecret(),
                 oauthProperties.getName(), oauthProperties.getName(),
