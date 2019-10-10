@@ -1,0 +1,28 @@
+/target/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode
+
+### Java class files
+*.class
+logger/
+
+### Windows thumbnail db
+Thumbs.db
+
+### OSX files
+.DS_Store
